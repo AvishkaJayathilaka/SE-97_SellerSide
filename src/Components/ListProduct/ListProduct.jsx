@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./ListProduct.css";
 import cross_icon from "../Assets/cross_icon.png";
 
+
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
 
-  const apiUrl = "https://autopilot97-8dad7d99b556.herokuapp.com";
+  const apiUrl ="https://autopilot97-8dad7d99b556.herokuapp.com";
 
   const fetchInfo = () => {
-    fetch(apiUrl + "/allproducts")
+    fetch(apiUrl +"/allproducts")
       .then((res) => res.json())
       .then((data) => setAllProducts(data));
   };
@@ -18,7 +19,7 @@ const ListProduct = () => {
   }, []);
 
   const removeProduct = async (id) => {
-    await fetch(apiUrl + "/removeproduct", {
+    await fetch(apiUrl +"/removeproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -27,7 +28,7 @@ const ListProduct = () => {
       body: JSON.stringify({ id: id }),
     });
 
-    fetch(apiUrl + "/allproducts")
+    fetch(apiUrl +"/allproducts")
       .then((res) => res.json())
       .then((data) => setAllProducts(data));
   };
@@ -50,10 +51,9 @@ const ListProduct = () => {
           return (
             <div key={e.id} className="maped-item">
               <div className="listproduct-format-main listproduct-format">
-                {/* Displaying image from database */}
                 <img
                   className="listproduct-product-icon"
-                  src={`${apiUrl}/images/${e.image}`}
+                  src={apiUrl + e.image}
                   alt=""
                 />
                 <p cartitems-product-title>{e.name}</p>
@@ -62,6 +62,7 @@ const ListProduct = () => {
                 <p>{e.model}</p>
                 <p>{e.year}</p>
                 <p>{e.brand}</p>
+                
                 <span
                   className="listproduct-remove-icon"
                   onClick={() => {
