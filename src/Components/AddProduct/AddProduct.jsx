@@ -17,42 +17,59 @@ const AddProduct = () => {
     description: "",
   });
 
-  const apiUrl ="https://autopilot97-8dad7d99b556.herokuapp.com";
+  const apiUrl = "https://autopilot97-8dad7d99b556.herokuapp.com";
 
   const AddProduct = async () => {
-    let dataObj;
-    let product = productDetails;
+    try {
+      let dataObj;
+      let product = productDetails;
 
-    let formData = new FormData();
-    formData.append("product", image);
+      let formData = new FormData();
+      formData.append("product", image);
 
-    await fetch(apiUrl +"/upload", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      body: formData,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        dataObj = data;
-      });
-
-    if (dataObj.success) {
-      product.image = dataObj.image_url;
-      console.log(product);
-      await fetch(apiUrl +"/addproduct", {
+      const uploadResponse = await fetch(apiUrl + "/upload", {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify(product),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          data.success ? alert("Product Added") : alert("Failed");
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const uploadData = await uploadResponse.json();
+      dataObj = uploadData;
+
+      if (dataObj.success) {
+        product.image = dataObj.image_url;
+
+        const addProductResponse = await fetch(apiUrl + "/addproduct", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(product),
         });
+
+        if (!addProductResponse.ok) {
+          throw new Error("Failed to add product");
+        }
+
+        const addProductData = await addProductResponse.json();
+        if (addProductData.success) {
+          alert("Product Added");
+        } else {
+          alert("Failed to add product");
+        }
+      } else {
+        alert("Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
