@@ -17,16 +17,19 @@ const AddProduct = () => {
     description: "",
   });
 
-  const apiUrl = "https://autopilot97-8dad7d99b556.herokuapp.com";
+  const apiUrl ="https://autopilot97-8dad7d99b556.herokuapp.com";
 
   const AddProduct = async () => {
     try {
       let dataObj;
       let product = productDetails;
-
+  
+      // Logging the data being uploaded
+      console.log("Uploading data:", image);
+  
       let formData = new FormData();
       formData.append("product", image);
-
+  
       const uploadResponse = await fetch(apiUrl + "/upload", {
         method: "POST",
         headers: {
@@ -34,17 +37,17 @@ const AddProduct = () => {
         },
         body: formData,
       });
-
+  
       if (!uploadResponse.ok) {
         throw new Error("Failed to upload image");
       }
-
+  
       const uploadData = await uploadResponse.json();
       dataObj = uploadData;
-
+  
       if (dataObj.success) {
         product.image = dataObj.image_url;
-
+  
         const addProductResponse = await fetch(apiUrl + "/addproduct", {
           method: "POST",
           headers: {
@@ -53,11 +56,11 @@ const AddProduct = () => {
           },
           body: JSON.stringify(product),
         });
-
+  
         if (!addProductResponse.ok) {
           throw new Error("Failed to add product");
         }
-
+  
         const addProductData = await addProductResponse.json();
         if (addProductData.success) {
           alert("Product Added");
@@ -72,6 +75,7 @@ const AddProduct = () => {
       alert("An error occurred. Please try again.");
     }
   };
+  
 
   const changeHandler = (e) => {
     console.log(e);
