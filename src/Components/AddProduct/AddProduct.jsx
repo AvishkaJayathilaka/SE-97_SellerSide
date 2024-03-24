@@ -17,7 +17,7 @@ const AddProduct = () => {
     description: "",
   });
 
-  const apiUrl ="https://autopilot97-8dad7d99b556.herokuapp.com"
+  const apiUrl ="https://autopilot97-8dad7d99b556.herokuapp.com";
 
   const AddProduct = async () => {
     let dataObj;
