@@ -53,7 +53,7 @@ const ListProduct = () => {
               <div className="listproduct-format-main listproduct-format">
                 <img
                   className="listproduct-product-icon"
-                  src={e.image}
+                  src={apiUrl + e.image}
                   alt=""
                 />
                 <p cartitems-product-title>{e.name}</p>
