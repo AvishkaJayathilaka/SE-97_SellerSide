@@ -9,8 +9,7 @@ function App() {
     <BrowserRouter>
       <div>
         <Navbar />
-        
-       <Admin />
+        <Admin />
         <Footer />
       </div>
       <Routes>
