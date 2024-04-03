@@ -9,7 +9,7 @@ const AddProduct = () => {
     image: "",
     category: "",
     new_price: "",
-    brand: "",
+    brand: "Toyota",
     contact: "+94 ",
     year: 2024,
     model: "",
