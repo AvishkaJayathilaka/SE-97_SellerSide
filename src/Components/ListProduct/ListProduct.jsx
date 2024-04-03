@@ -57,7 +57,7 @@ const ListProduct = () => {
                   alt=""
                 />
                 <p cartitems-product-title>{e.name}</p>
-                <p>Rs {e.new_price}</p>
+                <p>Rs: {e.new_price}</p>
                 <p>{e.category}</p>
                 <p>{e.model}</p>
                 <p>{e.year}</p>
