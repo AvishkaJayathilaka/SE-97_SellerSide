@@ -41,6 +41,7 @@ const ListProduct = () => {
         <p>Title</p>
         <p>New Price</p>
         <p>Category</p>
+        <p>Model</p>
         <p>Year</p>
         <p>Brand</p>
         <p>Remove</p>
